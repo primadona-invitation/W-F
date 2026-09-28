@@ -19,19 +19,7 @@
     --gold-light: #E0CA98;
     --paper: #FAF7F2;
   }
-/* Efek Pop-Up (Membesar & Terangkat) */
-  .pop-up-element {
-    opacity: 0;
-    transform: scale(0.7) translateY(30px);
-    transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1.2s ease-out;
-    will-change: transform, opacity;
-  }
 
-  /* Saat Elemen Terlihat Saat Di-scroll */
-  .page-section.active .pop-up-element {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -53,20 +41,20 @@
     position: relative;
   }
 
-  /* Section Animasi Transisi Scroll Syahdu */
-/* Efek Pop-Up Membesar untuk Seluruh Gambar Halaman */
+  /* Section Animasi Transisi Scroll (Efek Pop-Up Zoom/Geser) */
   .page-section {
     position: relative;
     width: 100%;
     opacity: 0;
-    transform: scale(0.85) translateY(40px); /* Efek awal mengecil */
+    transform: scale(0.9) translateY(40px);
     transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .page-section.active {
     opacity: 1;
-    transform: scale(1) translateY(0); /* Membesar & pas di layar saat di-scroll */
+    transform: scale(1) translateY(0);
   }
+
   .design-img {
     width: 100%;
     height: auto;
@@ -79,79 +67,60 @@
     padding-bottom: 40px;
   }
 
-  /* OVERLAY KLIK GOOGLE MAPS & CALENDAR (Gambar 3) */
- .maps-clickable-overlay {
+  /* POSISI AREA / TOMBOL GOOGLE MAPS (Bisa diatur top & right-nya di sini) */
+  .maps-clickable-overlay {
     position: absolute;
-    top: 1%;     /* Ubah persentase ini untuk geser Naik/Turun (contoh: 12%, 15%) */
-    right: 5%;    /* Ubah persentase ini untuk geser Kiri/Kanan (contoh: 8%, 10%) */
-    width: 42%;   /* Lebar area tombol */
-    height: 35%;  /* Tinggi area tombol */
+    top: 10%;     /* Ubah nilai ini untuk geser Naik/Turun */
+    right: 5%;    /* Ubah nilai ini untuk geser Kiri/Kanan */
+    width: 42%;   /* Lebar area klik */
+    height: 35%;  /* Tinggi area klik */
     cursor: pointer;
     border-radius: 8px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 5px;
-    gap: 4px;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
     text-decoration: none;
+    background: rgba(255,255,255,0.01); /* Transparan */
+    transition: background 0.3s ease;
   }
 
-/* 1. FONT TOMBOL "📍 Buka Maps" & "📅 + Kalender" */
+  .maps-clickable-overlay:hover {
+    background: rgba(194, 163, 102, 0.15);
+  }
+
   .action-btn-sm {
     background: var(--gold);
     color: var(--forest-dark);
-    font-size: 0.65rem; /* Ukuran teks (perbesar/perkecil: 0.7rem, 0.8rem) */
-    font-weight: bold;  /* Ketebalan huruf (normal/bold) */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Jenis font */
-    padding: 4px 8px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 5px 12px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     text-decoration: none;
     display: inline-block;
-    transition: transform 0.2s;
   }
 
-  /* 2. FONT TOMBOL "📋 Salin Rekening" */
-  .btn-copy {
-    flex: 1;
-    background: var(--forest);
-    color: var(--gold-light); /* Warna teks tombol */
-    border: 1px solid var(--gold);
-    padding: 6px 10px;
-    font-size: 0.7rem;  /* Ukuran teks tombol salin */
-    font-weight: bold;   /* Ketebalan huruf */
-    font-family: 'Playfair Display', Georgia, serif; /* Jenis font */
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-    text-align: center;
-  }
-  }
-  .action-btn-sm:active { transform: scale(0.95); }
-
-  /* OVERLAY TOMBOL SALIN REKENING (Gambar 3) */
- .copy-btn-container {
+  /* POSISI TOMBOL SALIN REKENING (Bisa diatur bottom-nya di sini) */
+  .copy-btn-container {
     position: absolute;
-    bottom: 15%;   /* Ubah persentase ini untuk geser Naik/Turun dari bawah (contoh: 6%, 8%) */
+    bottom: 4%;   /* Ubah nilai ini untuk geser Naik/Turun dari bawah */
     left: 50%;
     transform: translateX(-50%);
-    width: 85%;   /* Jarak/lebar gabungan kedua tombol */
+    width: 85%;
     display: flex;
     justify-content: space-between;
-    gap: 15px;    /* Jarak antara tombol Wuri dan Fais */
+    gap: 15px;
   }
 
   .btn-copy {
     flex: 1;
     background: var(--forest);
-    color: var(--gold-light); /* Warna teks tombol */
+    color: var(--gold-light);
     border: 1px solid var(--gold);
     padding: 6px 10px;
-    font-size: 0.7rem;  /* Ukuran teks tombol salin */
-    font-weight: bold;   /* Ketebalan huruf */
-    font-family: 'Playfair Display', Georgia, serif; /* Jenis font */
+    font-size: 0.7rem;
+    font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -320,7 +289,7 @@
 
   <!-- HALAMAN 1 -->
   <div class="page-section">
-    <img src="1.jpg" alt="Halaman Mempelai" class="design-img">
+    <img src="(Gambar Halaman Mempelai).png" alt="Halaman Mempelai" class="design-img">
   </div>
 
   <!-- HALAMAN 2 -->
@@ -328,15 +297,16 @@
     <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
-  <!-- HALAMAN 3 (MAPS, CALENDAR & REKENING) -->
+  <!-- HALAMAN 3 (GOOGLE MAPS BARU & REKENING) -->
   <div class="page-section" style="position: relative;">
     <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
 
-    <div class="maps-clickable-overlay">
-      <a class="action-btn-sm" href="https://maps.app.goo.gl/RZUvvCwBdmMZ4QmcA" target="_blank" rel="noopener">📍 Buka Maps</a>
-      <a class="action-btn-sm" id="cal-btn" href="#" target="_blank" rel="noopener">📅 + Kalender</a>
-    </div>
+    <!-- GANTI LINK DI BAWAH INI DENGAN LINK GOOGLE MAPS BARU MILIKMU -->
+    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/CONTOH_LINK_MAPS_BARU_KAMU" target="_blank" rel="noopener">
+      <span class="action-btn-sm">📍 Buka Google Maps</span>
+    </a>
 
+    <!-- TOMBOL SALIN REKENING -->
     <div class="copy-btn-container">
       <button class="btn-copy" onclick="copyToClipboard('0482139131')">📋 Salin Rek. Wuri</button>
       <button class="btn-copy" onclick="copyToClipboard('0482332909')">📋 Salin Rek. Fais</button>
@@ -373,7 +343,7 @@
           <div class="form-group">
             <label for="f-kehadiran">Konfirmasi Kehadiran</label>
             <select id="f-kehadiran" name="kehadiran" required>
-              <option value="Hadir">Hadir</option>
+              <option value="Hadir">Insya Allah Hadir</option>
               <option value="Tidak Hadir">Tidak Dapat Hadir</option>
             </select>
           </div>
@@ -414,14 +384,6 @@
     document.getElementById('f-nama').value = formattedName;
   }
 
-  // LINK GOOGLE CALENDAR AUTOMATIC
-  const calUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE"
-    + "&text=" + encodeURIComponent("Pernikahan Fais & Wuri")
-    + "&dates=20261119T010000Z/20261119T050000Z"
-    + "&details=" + encodeURIComponent("Akad & Resepsi Pernikahan Fais & Wuri.")
-    + "&location=" + encodeURIComponent("Jl. Raya Ngantru No.73, Tulungagung");
-  document.getElementById('cal-btn').href = calUrl;
-
   function updateCountdown() {
     const now = Date.now();
     let diff = targetDate - now;
@@ -453,17 +415,19 @@
   const musicBtn = document.getElementById('music-btn');
   const audio = document.getElementById('bg-audio');
 
- // Buka Undangan & Play Musik dari Detik ke-10
   openBtn.addEventListener('click', function(){
     gate.classList.add('opened');
     musicBtn.style.display = 'flex';
     
-    // Setel waktu mulai lagu ke detik ke-10
-    audio.currentTime = 0.10;
+    // Musik mulai dari detik ke-10
+    audio.currentTime = 10;
     
     audio.play().catch(function(){});
     triggerScrollAnimation();
+  });
 
+  musicBtn.addEventListener('click', function(){
+    if(audio.paused){ audio.play(); } else { audio.pause(); }
   });
 
   function triggerScrollAnimation() {
@@ -491,7 +455,8 @@
     .then(res => res.json())
     .then(data => {
       if(data.status === 'success'){
-        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
+        status_text = 'Terima kasih, konfirmasi Anda telah kami terima.';
+        statusEl.textContent = status_text;
         form.reset();
       } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
     })
