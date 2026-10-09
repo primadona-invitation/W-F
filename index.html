@@ -70,7 +70,7 @@
   /* POSISI AREA / TOMBOL GOOGLE MAPS (Bisa diatur top & right-nya di sini) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 15%;     /* Ubah nilai ini untuk geser Naik/Turun */
+    top: 50%;     /* Ubah nilai ini untuk geser Naik/Turun */
     right: 5%;    /* Ubah nilai ini untuk geser Kiri/Kanan */
     width: 42%;   /* Lebar area klik */
     height: 30%;  /* Tinggi area klik */
@@ -101,59 +101,7 @@
     text-decoration: none;
     display: inline-block;
   }
-
-  /* POSISI TOMBOL SALIN REKENING (Bisa diatur bottom-nya di sini) */
-  .copy-btn-container {
-    position: absolute;
-    bottom: 8%;   /* Ubah nilai ini untuk geser Naik/Turun dari bawah */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-  }
-
-  .btn-copy {
-    flex: 1;
-    background: var(--forest);
-    color: var(--gold-light);
-    border: 1px solid var(--gold);
-    padding: 6px 10px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-    text-align: center;
-  }
-
-  .btn-copy:active {
-    transform: scale(0.95);
-    background: var(--gold);
-    color: var(--forest-dark);
-  }
-
-  /* Toast Notifikasi Salin */
-  #copy-toast {
-    position: fixed;
-    top: 10px;
-    left: 60%;
-    transform: translateX(-50%) translateY(-100px);
-    background: var(--gold);
-    color: var(--forest-dark);
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  #copy-toast.show { transform: translateX(-50%) translateY(0); }
-
+  
   /* Overlay Konten Halaman 5 */
   .overlay-content {
     position: absolute;
@@ -290,28 +238,21 @@
 
   <!-- HALAMAN 2 -->
   <div class="page-section">
-    <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
+    <img src="INVITATION.png" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
   <!-- HALAMAN 3 (GOOGLE MAPS BARU & REKENING) -->
   <div class="page-section" style="position: relative;">
-    <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
+    <img src="DATE.png" alt="Halaman Acara & Gift" class="design-img">
 
     <!-- GANTI LINK DI BAWAH INI DENGAN LINK GOOGLE MAPS BARU MILIKMU -->
     <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
       <span class="action-btn-sm">📍 Buka Google Maps</span>
     </a>
 
-    <!-- TOMBOL SALIN REKENING -->
-    <div class="copy-btn-container">
-      <button class="btn-copy" onclick="copyToClipboard('0482139131')">📋 Salin Rek. Wuri</button>
-      <button class="btn-copy" onclick="copyToClipboard('0482332909')">📋 Salin Rek. Fais</button>
-    </div>
-  </div>
-
   <!-- HALAMAN 4 -->
   <div class="page-section">
-    <img src="4.jpg" alt="Halaman Doa" class="design-img">
+    <img src="ASMARA LOKA.png" alt="Halaman Doa" class="design-img">
   </div>
 
   <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
