@@ -57,7 +57,8 @@
     transform: translateY(0) scale(1);
   }
 
-  .design-img {
+  /* Style untuk Video & Gambar */
+  .design-img, .design-video {
     width: 100%;
     height: auto;
     display: block;
@@ -69,10 +70,10 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI AREA / TOMBOL GOOGLE MAPS (Dinaikin sedikit lagi) */
+  /* POSISI AREA / TOMBOL GOOGLE MAPS */
   .maps-clickable-overlay {
     position: absolute;
-    bottom: 16%;    /* Naikkan dari 12% ke 16% agar tombolnya naik ke atas */
+    bottom: 16%;    
     right: 8%;      
     width: 42%;     
     height: 40%;    
@@ -235,23 +236,32 @@
     </div>
   </div>
 
-  <!-- HALAMAN 2 -->
+  <!-- HALAMAN 2 (VIDEO) -->
   <div class="page-section">
-    <img src="UNDANGAN ONLINE.mp4" alt="Halaman Asmaraloka" class="design-img">
+    <video class="design-video" autoplay loop muted playsinline>
+      <source src="UNDANGAN ONLINE.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
-  <!-- HALAMAN 3 (GOOGLE MAPS) -->
+  <!-- HALAMAN 3 (VIDEO + MAPS) -->
   <div class="page-section" style="position: relative;">
-    <img src="UNDANGAN ONLINE 2.mp4" alt="Halaman Acara" class="design-img">
+    <video class="design-video" autoplay loop muted playsinline>
+      <source src="UNDANGAN ONLINE 2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
 
     <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
       <span class="action-btn-sm">📍 Buka Google Maps</span>
     </a>
   </div>
 
-  <!-- HALAMAN 4 -->
+  <!-- HALAMAN 4 (VIDEO) -->
   <div class="page-section">
-    <img src="UNDANGAN ONLINE 3.mp4" alt="Halaman Doa" class="design-img">
+    <video class="design-video" autoplay loop muted playsinline>
+      <source src="UNDANGAN ONLINE 3.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
