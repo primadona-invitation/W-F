@@ -41,7 +41,6 @@
     position: relative;
   }
 
-  /* Section Animasi Transisi Scroll Syahdu */
   .page-section {
     position: relative;
     width: 100%;
@@ -51,14 +50,22 @@
     will-change: opacity, transform;
   }
 
-  /* Saat Elemen Terlihat Saat Di-scroll */
   .page-section.active {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 
-  /* Style untuk Video & Gambar */
-  .design-img, .design-video {
+  /* KODE AGAR VIDEO HD & TAJAM (Mencegah Blur) */
+  .design-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    -webkit-font-smoothing: antialiased;
+    transform: translateZ(0); /* Hardware acceleration agar render lebih tajam */
+  }
+
+  .design-img {
     width: 100%;
     height: auto;
     display: block;
@@ -70,22 +77,23 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI AREA / TOMBOL GOOGLE MAPS */
+  /* POSISI TOMBOL GOOGLE MAPS (Hanya muncul saat bagian Date di video) */
   .maps-clickable-overlay {
     position: absolute;
-    bottom: 16%;    
+    bottom: 16();    
     right: 8%;      
     width: 42%;     
     height: 40%;    
     cursor: pointer;
     border-radius: 8px;
-    display: flex;
+    display: none; /* Awalnya disembunyikan, nanti dimunculkan lewat JavaScript sesuai detik video */
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 8px;
     text-decoration: none;
     background: rgba(255,255,255,0.01); 
     transition: background 0.3s ease;
+    z-index: 10;
   }
 
   .maps-clickable-overlay:hover {
@@ -104,7 +112,7 @@
     display: inline-block;
   }
   
-  /* Overlay Konten Halaman 5 */
+  /* Overlay Konten Halaman Terakhir (Countdown & RSVP) */
   .overlay-content {
     position: absolute;
     top: 34%;
@@ -116,7 +124,6 @@
     gap: 12px;
   }
 
-  /* Widget Countdown */
   .countdown-container {
     background: rgba(20, 36, 25, 0.88);
     backdrop-filter: blur(6px);
@@ -141,7 +148,6 @@
   .cd-number { color: #FFFFFF; font-size: 1.1rem; font-weight: bold; line-height: 1; }
   .cd-label { color: var(--gold); font-size: 0.6rem; margin-top: 3px; text-transform: lowercase; }
 
-  /* RSVP & UCAPAN STYLE */
   #rsvp-section { 
     padding: 12px 14px 16px; 
     color: var(--paper); 
@@ -236,35 +242,20 @@
     </div>
   </div>
 
-  <!-- HALAMAN 2 (VIDEO) -->
-  <div class="page-section">
-    <video class="design-video" autoplay loop muted playsinline>
-      <source src="UNDANGAN ONLINE.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  <!-- HALAMAN 3 (VIDEO + MAPS) -->
+  <!-- HALAMAN UTAMA (VIDEO GABUNGAN: Invitation, Date, & Asmara Loka) -->
   <div class="page-section" style="position: relative;">
-    <video class="design-video" autoplay loop muted playsinline>
-      <source src="UNDANGAN ONLINE 2.mp4" type="video/mp4">
+    <video id="main-video" class="design-video" autoplay loop muted playsinline>
+      <source src="UNDANGAN ONLINE ttt.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
 
-    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
+    <!-- Tombol Google Maps yang otomatis muncul saat bagian Date di video (detik ke-5 sampai ke-10) -->
+    <a id="maps-overlay" class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
       <span class="action-btn-sm">📍 Buka Google Maps</span>
     </a>
   </div>
 
-  <!-- HALAMAN 4 (VIDEO) -->
-  <div class="page-section">
-    <video class="design-video" autoplay loop muted playsinline>
-      <source src="UNDANGAN ONLINE 3.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
+  <!-- HALAMAN PENUTUP (COUNTDOWN & RSVP) -->
   <div class="page-section page-section-last">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
@@ -318,103 +309,4 @@
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqfdP58vU-orf43z_faXqAJTjptGH76VPzKM7aTR7dM-gXJh7cvYq0QEX1IINeZN6rGw/exec";
 
-  // Tanggal Pernikahan
-  const targetDate = new Date("2026-11-19T08:00:00+07:00").getTime();
-
-  // BACA NAMA TAMU DARI URL PARAMS (?to=Nama+Tamu)
-  const urlParams = new URLSearchParams(window.location.search);
-  const guestName = urlParams.get('to') || urlParams.get('nama');
-  if(guestName) {
-    const formattedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
-    document.getElementById('guest-name-display').textContent = formattedName;
-    document.getElementById('f-nama').value = formattedName;
-  }
-
-  function updateCountdown() {
-    const now = Date.now();
-    let diff = targetDate - now;
-    if(diff < 0) diff = 0;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
-    document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
-
-  const gate = document.getElementById('gate');
-  const openBtn = document.getElementById('open-btn');
-  const musicBtn = document.getElementById('music-btn');
-  const audio = document.getElementById('bg-audio');
-
-  openBtn.addEventListener('click', function(){
-    gate.classList.add('opened');
-    musicBtn.style.display = 'flex';
-    
-    // Musik mulai dari detik ke-10
-    audio.currentTime = 10;
-    
-    audio.play().catch(function(){});
-  });
-
-  musicBtn.addEventListener('click', function(){
-    if(audio.paused){ audio.play(); } else { audio.pause(); }
-  });
-
-  // INISIALISASI INTERSECTION OBSERVER UNTUK ANIMASI PER HALAMAN (TRANSISI SCROLL)
-  document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll('.page-section');
-    
-    if(sections.length > 0) {
-      sections[0].classList.add('active');
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { 
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
-    });
-
-    sections.forEach(section => { 
-      observer.observe(section); 
-    });
-  });
-
-  const form = document.getElementById('rsvp-form');
-  const submitBtn = document.getElementById('rsvp-submit');
-  const statusEl = document.getElementById('rsvp-status');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'MENGIRIM...';
-
-    fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
-    .then(res => res.json())
-    .then(data => {
-      if(data.status === 'success'){
-        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
-        form.reset();
-      } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
-    })
-    .catch(() => { statusEl.textContent = 'Terjadi kesalahan saat mengirim.'; })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'KIRIM KONFIRMASI';
-    });
-  });
-</script>
-
-</body>
-</html>
+  // Tanggal
