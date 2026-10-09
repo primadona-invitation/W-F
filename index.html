@@ -41,7 +41,7 @@
     position: relative;
   }
 
-  /* Sempurnakan Transisi Per Slide: Efek Fade-In & Smooth Slide-Up */
+  /* Transisi Per Slide */
   .page-section {
     position: relative;
     width: 100%;
@@ -51,7 +51,6 @@
     will-change: opacity, transform;
   }
 
-  /* Saat Elemen Masuk ke Layar (Aktif) */
   .page-section.active {
     opacity: 1;
     transform: translateY(0);
@@ -69,38 +68,25 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI AREA / TOMBOL GOOGLE MAPS */
+  /* AREA KLIK TRANSMARAN UNTUK GOOGLE MAPS (Menutupi tombol hijau di gambar) */
   .maps-clickable-overlay {
     position: absolute;
-    bottom: 16%;    
-    right: 8%;      
-    width: 42%;     
-    height: 40%;    
+    top: 57%;       /* Sesuaikan posisi vertikal area tombol hijau */
+    left: 36%;      /* Sesuaikan posisi horizontal */
+    width: 53%;     /* Lebar area klik menutupi tombol hijau */
+    height: 10%;    /* Tinggi area klik */
     cursor: pointer;
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 8px;
+    border-radius: 6px;
+    display: block;
     text-decoration: none;
-    background: rgba(255,255,255,0.01); 
+    background: rgba(255, 255, 255, 0); /* Transparan penuh tanpa kotak */
     transition: background 0.3s ease;
+    z-index: 10;
   }
 
-  .maps-clickable-overlay:hover {
-    background: rgba(194, 163, 102, 0.15);
-  }
-
-  .action-btn-sm {
-    background: var(--gold);
-    color: var(--forest-dark);
-    font-size: 0.65rem;
-    font-weight: bold;
-    padding: 5px 12px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    text-decoration: none;
-    display: inline-block;
+  /* Efek kilau tipis saat disentuh tamu agar ada feedback interaktif */
+  .maps-clickable-overlay:active {
+    background: rgba(194, 163, 102, 0.25);
   }
   
   /* Overlay Konten Halaman 5 */
@@ -240,18 +226,17 @@
     <img src="nama.png" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
-  <!-- HALAMAN 3 (GOOGLE MAPS) -->
+  <!-- HALAMAN 3 (GOOGLE MAPS - Area klik transparan di atas tombol hijau) -->
   <div class="page-section" style="position: relative;">
     <img src="tanggal.png" alt="Halaman Acara" class="design-img">
 
-    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
-      <span class="action-btn-sm">📍 Buka Google Maps</span>
-    </a>
+    <!-- Area klik transparan pas menutupi tombol hijau bertuliskan 'Kediaman Mempelai Wanita' -->
+    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener" aria-label="Buka Google Maps"></a>
   </div>
 
   <!-- HALAMAN 4 -->
   <div class="page-section">
-    <img src="cerita .png" alt="Halaman Doa" class="design-img">
+    <img src="cerita.png" alt="Halaman Doa" class="design-img">
   </div>
 
   <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
@@ -361,6 +346,7 @@
     }
 
     const observer = new IntersectionObserver((entries) => {
+      entries.ographystyle = "";
       entries.forEach(entry => {
         if(entry.isIntersecting) {
           entry.target.classList.add('active');
