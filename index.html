@@ -41,18 +41,20 @@
     position: relative;
   }
 
-  /* Section Animasi Transisi Scroll (Efek Pop-Up Zoom/Geser) */
+  /* Section Animasi Transisi Scroll Syahdu */
   .page-section {
     position: relative;
     width: 100%;
     opacity: 0;
-    transform: scale(0.9) translateY(40px);
-    transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
   }
 
+  /* Saat Elemen Terlihat Saat Di-scroll */
   .page-section.active {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0) scale(1);
   }
 
   .design-img {
@@ -67,13 +69,13 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI AREA / TOMBOL GOOGLE MAPS (Disesuaikan ke kotak kanan bawah DATE.png) */
+  /* POSISI AREA / TOMBOL GOOGLE MAPS (Dinaikin sedikit lagi) */
   .maps-clickable-overlay {
     position: absolute;
-    bottom: 12%;    /* Mengatur posisi dari bawah gambar */
-    right: 8%;      /* Mengatur posisi di sisi kanan kartu */
-    width: 42%;     /* Lebar area klik */
-    height: 45%;    /* Tinggi area klik */
+    bottom: 16%;    /* Naikkan dari 12% ke 16% agar tombolnya naik ke atas */
+    right: 8%;      
+    width: 42%;     
+    height: 40%;    
     cursor: pointer;
     border-radius: 8px;
     display: flex;
@@ -81,7 +83,7 @@
     justify-content: center;
     padding-bottom: 8px;
     text-decoration: none;
-    background: rgba(255,255,255,0.01); /* Transparan */
+    background: rgba(255,255,255,0.01); 
     transition: background 0.3s ease;
   }
 
@@ -235,12 +237,12 @@
 
   <!-- HALAMAN 2 -->
   <div class="page-section">
-    <img src="INVITATION.png" alt="Halaman Asmaraloka" class="design-img">
+    <img src="UNDANGAN ONLINE.mp4" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
   <!-- HALAMAN 3 (GOOGLE MAPS) -->
   <div class="page-section" style="position: relative;">
-    <img src="DATE.png" alt="Halaman Acara" class="design-img">
+    <img src="UNDANGAN ONLINE 2.mp4" alt="Halaman Acara" class="design-img">
 
     <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
       <span class="action-btn-sm">📍 Buka Google Maps</span>
@@ -249,7 +251,7 @@
 
   <!-- HALAMAN 4 -->
   <div class="page-section">
-    <img src="ASMARA LOKA.png" alt="Halaman Doa" class="design-img">
+    <img src="UNDANGAN ONLINE 3.mp4" alt="Halaman Doa" class="design-img">
   </div>
 
   <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
@@ -349,24 +351,35 @@
     audio.currentTime = 10;
     
     audio.play().catch(function(){});
-    triggerScrollAnimation();
   });
 
   musicBtn.addEventListener('click', function(){
     if(audio.paused){ audio.play(); } else { audio.pause(); }
   });
 
-  function triggerScrollAnimation() {
+  // INISIALISASI INTERSECTION OBSERVER UNTUK ANIMASI PER HALAMAN (TRANSISI SCROLL)
+  document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll('.page-section');
+    
+    if(sections.length > 0) {
+      sections[0].classList.add('active');
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting) { entry.target.classList.add('active'); }
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
       });
-    }, { threshold: 0.1 });
+    }, { 
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    });
 
-    sections.forEach(section => { observer.observe(section); });
-  }
-  window.addEventListener('DOMContentLoaded', triggerScrollAnimation);
+    sections.forEach(section => { 
+      observer.observe(section); 
+    });
+  });
 
   const form = document.getElementById('rsvp-form');
   const submitBtn = document.getElementById('rsvp-submit');
