@@ -67,20 +67,19 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI AREA / TOMBOL GOOGLE MAPS (Bisa diatur top & right-nya di sini) */
+  /* POSISI AREA / TOMBOL GOOGLE MAPS (Disesuaikan ke kotak kanan bawah DATE.png) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 50%;     /* Ubah nilai ini untuk geser Naik/Turun */
-    right: 5%;    /* Ubah nilai ini untuk geser Kiri/Kanan */
-    width: 42%;   /* Lebar area klik */
-    height: 30%;  /* Tinggi area klik */
+    bottom: 12%;    /* Mengatur posisi dari bawah gambar */
+    right: 8%;      /* Mengatur posisi di sisi kanan kartu */
+    width: 42%;     /* Lebar area klik */
+    height: 45%;    /* Tinggi area klik */
     cursor: pointer;
     border-radius: 8px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-bottom: 5px;
-    gap: 4px;
+    padding-bottom: 8px;
     text-decoration: none;
     background: rgba(255,255,255,0.01); /* Transparan */
     transition: background 0.3s ease;
@@ -220,8 +219,6 @@
 </head>
 <body>
 
-<div id="copy-toast">Nomor Rekening Berhasil Disalin!</div>
-
 <div class="invitation-container">
 
   <!-- COVER / GATE -->
@@ -241,14 +238,14 @@
     <img src="INVITATION.png" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
-  <!-- HALAMAN 3 (GOOGLE MAPS BARU & REKENING) -->
+  <!-- HALAMAN 3 (GOOGLE MAPS) -->
   <div class="page-section" style="position: relative;">
-    <img src="DATE.png" alt="Halaman Acara & Gift" class="design-img">
+    <img src="DATE.png" alt="Halaman Acara" class="design-img">
 
-    <!-- GANTI LINK DI BAWAH INI DENGAN LINK GOOGLE MAPS BARU MILIKMU -->
     <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
       <span class="action-btn-sm">📍 Buka Google Maps</span>
     </a>
+  </div>
 
   <!-- HALAMAN 4 -->
   <div class="page-section">
@@ -339,14 +336,6 @@
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      const toast = document.getElementById('copy-toast');
-      toast.classList.add('show');
-      setTimeout(() => { toast.classList.remove('show'); }, 2500);
-    });
-  }
-
   const gate = document.getElementById('gate');
   const openBtn = document.getElementById('open-btn');
   const musicBtn = document.getElementById('music-btn');
@@ -392,8 +381,7 @@
     .then(res => res.json())
     .then(data => {
       if(data.status === 'success'){
-        status_text = 'Terima kasih, konfirmasi Anda telah kami terima.';
-        statusEl.textContent = status_text;
+        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
         form.reset();
       } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
     })
