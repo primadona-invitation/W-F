@@ -13,12 +13,15 @@
 
 <style>
   :root {
+    --forest: #1F3325;
     --forest-dark: #142419;
     --gold: #C2A366;
     --gold-light: #E0CA98;
+    --paper: #FAF7F2;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--forest-dark);
     display: flex;
@@ -26,107 +29,383 @@
     align-items: center;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
+  /* Container HP */
   .invitation-container {
     width: 100%;
     max-width: 480px;
-    height: 100vh;
-    max-height: 900px;
-    background: var(--forest-dark);
+    background: var(--forest);
     box-shadow: 0 0 25px rgba(0,0,0,0.6);
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-  .cover-wrapper {
-    width: 100%;
-    height: 100%;
+  .page-section {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .page-section.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* KODE UTAMA AGAR VIDEO TIDAK BLUR / TAJAM & HD */
+  .design-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    -webkit-font-smoothing: antialiased;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .design-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
   }
 
+  .page-section-last {
+    position: relative;
+    background: var(--forest-dark);
+    padding-bottom: 40px;
+  }
+
+  /* TOMBOL MAPS DI ATAS VIDEO (Muncul di detik ke-5 s.d. 10 saat bagian jadwal) */
+  .maps-clickable-overlay {
+    position: absolute;
+    bottom: 25%;    
+    right: 8%;      
+    width: 42%;     
+    height: 35%;    
+    cursor: pointer;
+    border-radius: 8px;
+    display: none; 
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    text-decoration: none;
+    background: rgba(194, 163, 102, 0.15); 
+    transition: background 0.3s ease;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .maps-clickable-overlay:hover {
+    background: rgba(194, 163, 102, 0.3);
+  }
+
+  .action-btn-sm {
+    background: var(--gold);
+    color: var(--forest-dark);
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  /* Overlay Konten Halaman Terakhir (Countdown & RSVP di atas gambar penutup) */
+  .overlay-content {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .countdown-container {
+    background: rgba(20, 36, 25, 0.92);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  .countdown-title {
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .countdown-grid { display: flex; justify-content: space-around; align-items: center; }
+  .cd-box { text-align: center; }
+  .cd-number { color: #FFFFFF; font-size: 1.1rem; font-weight: bold; line-height: 1; }
+  .cd-label { color: var(--gold); font-size: 0.6rem; margin-top: 3px; text-transform: lowercase; }
+
+  #rsvp-section { 
+    padding: 12px 14px 16px; 
+    color: var(--paper); 
+    background: rgba(20, 36, 25, 0.92);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  .rsvp-title {
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .form-group { margin-bottom: 8px; text-align: left; }
+  .form-group label { display: block; font-size: 0.68rem; margin-bottom: 3px; color: var(--gold-light); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 7px 9px; background: rgba(255,255,255,0.08);
+    border: 1px solid var(--gold); color: var(--paper); border-radius: 6px;
+    font-family: inherit; font-size: 0.78rem; outline: none;
+  }
+
+  .btn-submit {
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 10px 15px; font-weight: bold; cursor: pointer; width: 100%;
+    border-radius: 6px; font-size: 0.78rem; letter-spacing: 0.05em;
+    transition: background 0.3s ease; margin-top: 4px;
+  }
+
+  /* Cover Gate */
+  #gate {
+    position: fixed; inset: 0; z-index: 100;
+    background: var(--forest-dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  #gate.opened { transform: translateY(-100%); pointer-events: none; }
+  .cover-wrapper { width: 100%; max-width: 480px; position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+
   .guest-tag-overlay {
     position: absolute;
-    bottom: 130px;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--gold-light);
     font-size: 0.85rem;
     text-align: center;
     width: 80%;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   }
 
   .open-btn {
-    position: absolute; 
-    bottom: 50px; 
-    left: 50%;
+    position: absolute; bottom: 50px; left: 50%;
     transform: translateX(-50%);
-    background: var(--gold); 
-    color: var(--forest-dark);
-    border: none; 
-    padding: 12px 35px; 
-    font-weight: bold;
-    font-size: 0.85rem; 
-    letter-spacing: 0.05em;
-    border-radius: 25px; 
-    cursor: pointer;
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 12px 30px; font-weight: bold;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    border-radius: 25px; cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.2s ease;
   }
 
-  .open-btn:active {
-    transform: translateX(-50%) scale(0.95);
+  #music-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 99;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold); border: none; color: var(--forest-dark);
+    font-size: 1.2rem; cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
 </style>
 </head>
 <body>
 
 <div class="invitation-container">
-  <div class="cover-wrapper">
-    <!-- Gambar Cover di Canva (pastikan file gambarnya ada di GitHub) -->
-    <img src="Brown and Beige Lace Floral Nikah Wedding Invitation.png" alt="Cover Undangan" class="design-img">
-    
-    <div class="guest-tag-overlay">
-      <span>Kepada Yth.</span><br>
-      <b id="guest-name-display" style="font-size: 1.05rem; color: #FFF;">Tamu Undangan</b>
-    </div>
 
-    <!-- Tombol untuk membuka link Canva -->
-    <button class="open-btn" id="open-btn">BUKA UNDANGAN</button>
+  <!-- 1. COVER / GATE (MUNCUL PERTAMA) -->
+  <div id="gate">
+    <div class="cover-wrapper">
+      <img src="Brown and Beige Lace Floral Nikah Wedding Invitation.png" alt="Cover Undangan" class="design-img">
+      <div class="guest-tag-overlay">
+        <span>Kepada Yth.</span><br>
+        <b id="guest-name-display" style="font-size: 1rem; color: #FFF;">Tamu Undangan</b>
+      </div>
+      <button class="open-btn" id="open-btn">BUKA UNDANGAN</button>
+    </div>
   </div>
+
+  <!-- 2. HALAMAN TENGAH (VIDEO GABUNGAN CANVA DENGAN RESOLUSI TAJAM) -->
+  <div class="page-section" style="position: relative;">
+    <video id="main-video" class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="wedding invitation.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Tombol Google Maps interaktif yang muncul pas di bagian jadwal (detik 5 s.d 10) -->
+    <a id="maps-overlay" class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener">
+      <span class="action-btn-sm">📍 Buka Google Maps</span>
+    </a>
+  </div>
+
+  <!-- 3. HALAMAN PENUTUP (GAMBAR 5.jpg DITIMPA COUNTDOWN & RSVP GITHUB) -->
+  <div class="page-section page-section-last">
+    <img src="5.jpg" alt="Halaman Penutup" class="design-img">
+
+    <div class="overlay-content">
+      <!-- Hitung Mundur Otomatis -->
+      <div class="countdown-container">
+        <div class="countdown-title">Hitung Mundur Acara</div>
+        <div class="countdown-grid">
+          <div class="cd-box"><div class="cd-number" id="cd-days">00</div><div class="cd-label">Hari</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-hours">00</div><div class="cd-label">Jam</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-mins">00</div><div class="cd-label">Menit</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-secs">00</div><div class="cd-label">Detik</div></div>
+        </div>
+      </div>
+
+      <!-- Form RSVP GitHub & Google Sheets -->
+      <div id="rsvp-section">
+        <div class="rsvp-title">Konfirmasi Kehadiran</div>
+        <form id="rsvp-form">
+          <div class="form-group">
+            <label for="f-nama">Nama Lengkap</label>
+            <input type="text" id="f-nama" name="nama" required placeholder="Tulis nama Anda...">
+          </div>
+          <div class="form-group">
+            <label for="f-kehadiran">Konfirmasi Kehadiran</label>
+            <select id="f-kehadiran" name="kehadiran" required>
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Dapat Hadir</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-jumlah">Jumlah Tamu (Termasuk Anda)</label>
+            <input type="number" id="f-jumlah" name="jumlahTamu" value="1" min="1" max="5">
+          </div>
+          <div class="form-group">
+            <label for="f-pesan">Ucapan &amp; Doa Restu</label>
+            <textarea id="f-pesan" name="pesan" rows="2" required placeholder="Tulis ucapan dan doa Anda..."></textarea>
+          </div>
+          <button type="submit" id="rsvp-submit" class="btn-submit">KIRIM KONFIRMASI</button>
+          <div id="rsvp-status" style="text-align:center; font-size:0.7rem; margin-top:6px; color: var(--gold-light);"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<button id="music-btn">🎵</button>
+<audio id="bg-audio" loop>
+  <source src="Nadin_Amizah_-_Kekal_(mp3.pm).mp3" type="audio/mpeg">
+</audio>
+
 <script>
-  // 1. Ambil Nama Tamu dari URL (?to=Nama+Tamu)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqfdP58vU-orf43z_faXqAJTjptGH76VPzKM7aTR7dM-gXJh7cvYq0QEX1IINeZN6rGw/exec";
+  const targetDate = new Date("2026-11-19T08:00:00+07:00").getTime();
+
+  // Ambil Nama Tamu dari URL (?to=Nama+Tamu)
   const urlParams = new URLSearchParams(window.location.search);
   const guestName = urlParams.get('to') || urlParams.get('nama');
   if(guestName) {
     const formattedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
     document.getElementById('guest-name-display').textContent = formattedName;
+    document.getElementById('f-nama').value = formattedName;
   }
 
-  // 2. Aksi ketika tombol "BUKA UNDANGAN" diklik
+  // Fungsi Hitung Mundur Otomatis
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = targetDate - now;
+    if(diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  const gate = document.getElementById('gate');
   const openBtn = document.getElementById('open-btn');
+  const musicBtn = document.getElementById('music-btn');
+  const audio = document.getElementById('bg-audio');
+  const mainVideo = document.getElementById('main-video');
+  const mapsOverlay = document.getElementById('maps-overlay');
+
   openBtn.addEventListener('click', function(){
-    // Link Website Canva milikmu
-    const canvaWebsiteLink = "https://canva.link/bdn19gpcdgy2hld";
-    
-    window.location.href = canvaWebsiteLink;
+    gate.classList.add('opened');
+    musicBtn.style.display = 'flex';
+    audio.currentTime = 10;
+    audio.play().catch(function(){});
+    mainVideo.play();
+  });
+
+  musicBtn.addEventListener('click', function(){
+    if(audio.paused){ audio.play(); } else { audio.pause(); }
+  });
+
+  // Munculkan Tombol Maps di Video saat Detik ke-5 sampai 10
+  mainVideo.addEventListener('timeupdate', function() {
+    const currentTime = mainVideo.currentTime;
+    if (currentTime >= 5.0 && currentTime <= 10.5) {
+      mapsOverlay.style.display = 'flex';
+    } else {
+      mapsOverlay.style.display = 'none';
+    }
+  });
+
+  // Animasi Muncul Per Halaman (Scroll Effect)
+  document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll('.page-section');
+    if(sections.length > 0) sections[0].classList.add('active');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    sections.forEach(section => observer.observe(section));
+  });
+
+  // Kirim Data RSVP ke Google Sheets
+  const form = document.getElementById('rsvp-form');
+  const submitBtn = document.getElementById('rsvp-submit');
+  const statusEl = document.getElementById('rsvp-status');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'MENGIRIM...';
+
+    fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status === 'success'){
+        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
+        form.reset();
+      } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
+    })
+    .catch(() => { statusEl.textContent = 'Terjadi kesalahan saat mengirim.'; })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'KIRIM KONFIRMASI';
+    });
   });
 </script>
 
