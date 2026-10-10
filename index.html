@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Wuri &amp; Fais — Wedding Invitation</title>
 
-<!-- Meta Tag Preview WhatsApp & Sosmed (Gambar cover preview tetap pakai 1.jpg/V1.jpg agar ringan saat dibagikan) -->
+<!-- Meta Tag Preview WhatsApp & Sosmed -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Undangan Pernikahan Fais & Wuri">
 <meta property="og:description" content="Kamis, 19 November 2026 — Kami mengundang Anda untuk hadir di hari bahagia kami.">
@@ -78,26 +78,25 @@
     padding-bottom: 40px;
   }
 
-  /* POSISI & WARNA KUNING EMAS TRANSPARAN UNTUK TESTING TOMBOL GOOGLE MAPS */
+  /* KOTAK KUNING EMAS TRANSPARAN UNTUK TESTING DI V5 */
   .maps-clickable-overlay {
     position: absolute;
-    top: 67.5%;     /* Geser vertikal ke atas/bawah */
-    left: 54%;      /* Geser horizontal ke kiri/kanan */
-    width: 41%;     /* Lebar area tombol */
-    height: 3.5%;   /* Tinggi area tombol */
+    top: 67.5%;     /* Sesuaikan jika ingin digeser atas/bawah */
+    left: 54%;      /* Sesuaikan jika ingin digeser kiri/kanan */
+    width: 41%;     /* Lebar tombol */
+    height: 3.5%;   /* Tinggi tombol */
     cursor: pointer;
     border-radius: 20px;
     display: block;
     text-decoration: none;
-    background: rgba(194, 163, 102, 0.45); /* Warna Kuning Emas Transparan */
-    border: 1px solid var(--gold-light);  /* Bingkai tipis agar posisi semakin jelas */
+    background: rgba(194, 163, 102, 0.45); /* Kuning emas transparan untuk tes */
+    border: 1px solid var(--gold-light);
     transition: background 0.3s ease;
     z-index: 10;
   }
 
   .maps-clickable-overlay:active {
     background: rgba(224, 202, 152, 0.7);
-  
   }
   
   .overlay-content {
@@ -170,7 +169,7 @@
     transition: background 0.3s ease; margin-top: 4px;
   }
 
-  /* Cover Gate dengan Video V1.mp4 */
+  /* Cover Gate V1.mp4 */
   #gate {
     position: fixed; inset: 0; z-index: 100;
     background: var(--forest-dark);
@@ -220,7 +219,7 @@
 
 <div class="invitation-container">
 
-  <!-- COVER / GATE BERUPA VIDEO V1.mp4 -->
+  <!-- COVER / GATE (V1.mp4) -->
   <div id="gate">
     <div class="cover-wrapper">
       <video class="design-video" autoplay loop muted playsinline preload="auto">
@@ -255,11 +254,12 @@
     </video>
   </div>
 
-  <!-- VIDEO 5 (V5.mp4) + Google Maps -->
+  <!-- VIDEO 5 (V5.mp4) + TOMBOL GOOGLE MAPS DI SINI -->
   <div class="page-section" style="position: relative;">
     <video class="design-video" autoplay loop muted playsinline preload="auto">
       <source src="V5.mp4" type="video/mp4">
     </video>
+    <!-- Area klik transparan Google Maps menutupi tombol hijau di V5 -->
     <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/c4Mcqhm6RHwhyWY96" target="_blank" rel="noopener" aria-label="Buka Google Maps"></a>
   </div>
 
