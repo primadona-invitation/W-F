@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Fais &amp; Wuri — Undangan Pernikahan</title>
+<title>Wuri &amp; Fais — Wedding Invitation</title>
 
 <!-- Meta Tag Preview WhatsApp & Sosmed (Gambar cover preview tetap pakai 1.jpg/V1.jpg agar ringan saat dibagikan) -->
 <meta property="og:type" content="website">
@@ -78,24 +78,26 @@
     padding-bottom: 40px;
   }
 
-  /* Overlay Klik Google Maps */
+  /* POSISI & WARNA KUNING EMAS TRANSPARAN UNTUK TESTING TOMBOL GOOGLE MAPS */
   .maps-clickable-overlay {
     position: absolute;
-    top: 57%;       
-    left: 36%;      
-    width: 53%;     
-    height: 10%;    
+    top: 67.5%;     /* Geser vertikal ke atas/bawah */
+    left: 54%;      /* Geser horizontal ke kiri/kanan */
+    width: 41%;     /* Lebar area tombol */
+    height: 3.5%;   /* Tinggi area tombol */
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 20px;
     display: block;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0); 
+    background: rgba(194, 163, 102, 0.45); /* Warna Kuning Emas Transparan */
+    border: 1px solid var(--gold-light);  /* Bingkai tipis agar posisi semakin jelas */
     transition: background 0.3s ease;
     z-index: 10;
   }
 
   .maps-clickable-overlay:active {
-    background: rgba(194, 163, 102, 0.25);
+    background: rgba(224, 202, 152, 0.7);
+  
   }
   
   .overlay-content {
