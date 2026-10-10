@@ -7,7 +7,7 @@
 
 <!-- Meta Tag Preview WhatsApp & Sosmed -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Undangan Pernikahan Fais & Wuri">
+<meta property="og:title" content="Wedding Invitation Wuri & Fais">
 <meta property="og:description" content="Kamis, 19 November 2026 — Kami mengundang Anda untuk hadir di hari bahagia kami.">
 <meta property="og:image" content="https://wuricep291-rgb.github.io/W-F/1.jpg">
 <meta property="og:image:width" content="1200">
@@ -78,25 +78,25 @@
     padding-bottom: 40px;
   }
 
-  /* KOTAK KUNING EMAS TRANSPARAN UNTUK TESTING DI V5 */
+/* AREA KLIK TRANSPARAN GOOGLE MAPS (PAS DI TOMBOL HIJAU) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 67.5%;     /* Sesuaikan jika ingin digeser atas/bawah */
-    left: 54%;      /* Sesuaikan jika ingin digeser kiri/kanan */
+    top: 59.5%;     /* Sudah dinaikkan ke atas agar pas di tombol hijau */
+    left: 54%;      /* Posisi horizontal kanan */
     width: 41%;     /* Lebar tombol */
-    height: 3.5%;   /* Tinggi tombol */
+    height: 4%;     /* Tinggi tombol */
     cursor: pointer;
     border-radius: 20px;
     display: block;
     text-decoration: none;
-    background: rgba(194, 163, 102, 0.45); /* Kuning emas transparan untuk tes */
-    border: 1px solid var(--gold-light);
+    background: rgba(255, 255, 255, 0); /* Transparan penuh */
+    border: none;
     transition: background 0.3s ease;
     z-index: 10;
   }
 
   .maps-clickable-overlay:active {
-    background: rgba(224, 202, 152, 0.7);
+    background: rgba(194, 163, 102, 0.25); /* Efek kilau emas tipis saat disentuh */
   }
   
   .overlay-content {
