@@ -6,9 +6,12 @@
 <title>Fais &amp; Wuri — Undangan Pernikahan</title>
 
 <!-- Meta Tag untuk Tampilan Preview di WhatsApp & Sosmed -->
+<meta property="og:type" content="website">
 <meta property="og:title" content="Undangan Pernikahan Fais & Wuri">
 <meta property="og:description" content="Kamis, 19 November 2026 — Kami mengundang Anda untuk hadir di hari bahagia kami.">
-<meta property="og:image" content="1.jpg">
+<meta property="og:image" content="https://wuricep291-rgb.github.io/W-F/1.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://wuricep291-rgb.github.io/W-F/">
 
 <style>
@@ -36,24 +39,37 @@
   .invitation-container {
     width: 100%;
     max-width: 480px;
-    background: var(--forest);
+    background: var(--forest-dark);
     box-shadow: 0 0 25px rgba(0,0,0,0.6);
     position: relative;
   }
 
-  /* Transisi Per Slide */
+  /* Transisi Per Slide yang Menyambung & Syahdu */
   .page-section {
     position: relative;
     width: 100%;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px);
+    transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
+    overflow: hidden;
+    background: var(--forest-dark);
   }
 
   .page-section.active {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* KELAS KHUSUS VIDEO MP4 AGAR TAJAM, HD & TIDAK PECAH */
+  .design-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    -webkit-font-smoothing: antialiased;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .design-img {
@@ -68,28 +84,27 @@
     padding-bottom: 40px;
   }
 
-  /* AREA KLIK TRANSMARAN UNTUK GOOGLE MAPS (Menutupi tombol hijau di gambar) */
+  /* AREA KLIK TRANSPARAN UNTUK GOOGLE MAPS (Sesuaikan letaknya di video mana yang ada info lokasinya) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 57%;       /* Sesuaikan posisi vertikal area tombol hijau */
-    left: 36%;      /* Sesuaikan posisi horizontal */
-    width: 53%;     /* Lebar area klik menutupi tombol hijau */
-    height: 10%;    /* Tinggi area klik */
+    top: 57%;       
+    left: 36%;      
+    width: 53%;     
+    height: 10%;    
     cursor: pointer;
     border-radius: 6px;
     display: block;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0); /* Transparan penuh tanpa kotak */
+    background: rgba(255, 255, 255, 0); 
     transition: background 0.3s ease;
     z-index: 10;
   }
 
-  /* Efek kilau tipis saat disentuh tamu agar ada feedback interaktif */
   .maps-clickable-overlay:active {
     background: rgba(194, 163, 102, 0.25);
   }
   
-  /* Overlay Konten Halaman 5 */
+  /* Overlay Konten Halaman Penutup */
   .overlay-content {
     position: absolute;
     top: 34%;
@@ -212,7 +227,7 @@
   <!-- COVER / GATE -->
   <div id="gate">
     <div class="cover-wrapper">
-      <img src="Brown and Beige Lace Floral Nikah Wedding Invitation.png" alt="Cover Undangan" class="design-img">
+      <img src="1.jpg" alt="Cover Undangan" class="design-img">
       <div class="guest-tag-overlay">
         <span>Kepada Yth.</span><br>
         <b id="guest-name-display" style="font-size: 1rem; color: #FFF;">Tamu Undangan</b>
@@ -221,25 +236,50 @@
     </div>
   </div>
 
-  <!-- HALAMAN 2 -->
+  <!-- VIDEO 1 -->
   <div class="page-section">
-    <img src="nama.png" alt="Halaman Asmaraloka" class="design-img">
+    <video class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="invitation online 1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
-  <!-- HALAMAN 3 (GOOGLE MAPS - Area klik transparan di atas tombol hijau) -->
+  <!-- VIDEO 2 -->
+  <div class="page-section">
+    <video class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="invitation online 2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- VIDEO 3 -->
+  <div class="page-section">
+    <video class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="invitation online 3.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- VIDEO 4 -->
+  <div class="page-section">
+    <video class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="invitation online 4.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- VIDEO 5 (Dilengkapi Tombol Google Maps jika video ini berisi info lokasi/acara) -->
   <div class="page-section" style="position: relative;">
-    <img src="tanggal.png" alt="Halaman Acara" class="design-img">
+    <video class="design-video" autoplay loop muted playsinline preload="auto">
+      <source src="invitation online 5.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
 
-    <!-- Area klik transparan pas menutupi tombol hijau bertuliskan 'Kediaman Mempelai Wanita' -->
-    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/5oTvZLmPu9JbWHqy5" target="_blank" rel="noopener" aria-label="Buka Google Maps"></a>
+    <!-- Area klik transparan Google Maps -->
+    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/c4Mcqhm6RHwhyWY96" target="_blank" rel="noopener" aria-label="Buka Google Maps"></a>
   </div>
 
-  <!-- HALAMAN 4 -->
-  <div class="page-section">
-    <img src="cerita.png" alt="Halaman Doa" class="design-img">
-  </div>
-
-  <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
+  <!-- HALAMAN AKHIR (COUNTDOWN & RSVP - Gambar 5.jpg) -->
   <div class="page-section page-section-last">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
@@ -331,13 +371,18 @@
     musicBtn.style.display = 'flex';
     audio.currentTime = 10;
     audio.play().catch(function(){});
+
+    // Putar semua video secara otomatis
+    document.querySelectorAll('video').forEach(vid => {
+      vid.play().catch(() => {});
+    });
   });
 
-  musicBtn.addEventListener('click', function(){
+  music`button`.addEventListener('click', function(){
     if(audio.paused){ audio.play(); } else { audio.pause(); }
   });
 
-  // TRANSISI SYAHDU SAAT SCROLL
+  // TRANSISI SYAHDU SAAT SCROLL & AUTO-PLAY VIDEO
   document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll('.page-section');
     
@@ -346,10 +391,13 @@
     }
 
     const observer = new IntersectionObserver((entries) => {
-      entries.ographystyle = "";
       entries.forEach(entry => {
         if(entry.isIntersecting) {
           entry.target.classList.add('active');
+          const video = entry.target.querySelector('video');
+          if(video) {
+            video.play().catch(() => {});
+          }
         }
       });
     }, { 
