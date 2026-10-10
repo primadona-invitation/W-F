@@ -78,10 +78,10 @@
     padding-bottom: 40px;
   }
 
-/* AREA KLIK TRANSPARAN GOOGLE MAPS (PAS DI TOMBOL HIJAU) */
+/* AREA KLIK GOOGLE MAPS (WARNA KUNING EMAS TRANSPARAN) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 58,5%;     /* Sudah dinaikkan ke atas agar pas di tombol hijau */
+    top: 59.5%;     /* Sudah dinaikkan ke atas agar pas di tombol hijau */
     left: 54%;      /* Posisi horizontal kanan */
     width: 41%;     /* Lebar tombol */
     height: 4%;     /* Tinggi tombol */
@@ -89,14 +89,14 @@
     border-radius: 20px;
     display: block;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0); /* Transparan penuh */
-    border: none;
+    background: rgba(194, 163, 102, 0.45); /* Warna Kuning Emas Transparan */
+    border: 1px solid var(--gold-light);  /* Bingkai tipis warna emas */
     transition: background 0.3s ease;
     z-index: 10;
   }
 
   .maps-clickable-overlay:active {
-    background: rgba(194, 163, 102, 0.25); /* Efek kilau emas tipis saat disentuh */
+    background: rgba(224, 202, 152, 0.7); /* Efek saat disentuh */
   }
   
   .overlay-content {
