@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Wuri &amp; Fais — The Wedding Of</title>
+<title>Fais &amp; Wuri — Undangan Pernikahan</title>
 
 <!-- Meta Tag Preview WhatsApp & Sosmed -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Wedding Of Wuri & Fais">
+<meta property="og:title" content="Undangan Pernikahan Fais & Wuri">
 <meta property="og:description" content="Kamis, 19 November 2026 — Kami mengundang Anda untuk hadir di hari bahagia kami.">
 <meta property="og:image" content="https://wuricep291-rgb.github.io/W-F/1.jpg">
 <meta property="og:image:width" content="1200">
@@ -78,40 +78,25 @@
     padding-bottom: 40px;
   }
 
-  /* TOMBOL RESMI GOOGLE MAPS DI ATAS VIDEO V4 */
-  .maps-button-container {
+  /* KOTAK KUNING EMAS TRANSPARAN UNTUK TESTING DI V5 */
+  .maps-clickable-overlay {
     position: absolute;
-    top: 65.5%;       /* Sudah diperbaiki memakai titik (.) */
-    left: 56%;
-    transform: translateX(-50%);
-    width: 39%;
-    text-align: center;
+    top: 65.5%;     /* Sesuaikan jika ingin digeser atas/bawah */
+    left: 56%;      /* Sesuaikan jika ingin digeser kiri/kanan */
+    width: 39%;     /* Lebar tombol */
+    height: 5%;   /* Tinggi tombol */
+    cursor: pointer;
+    border-radius: 20px;
+    display: block;
+    text-decoration: none;
+    background: rgba(194, 163, 102, 0.45); /* Kuning emas transparan untuk tes */
+    border: 1px solid var(--gold-light);
+    transition: background 0.3s ease;
     z-index: 10;
   }
 
-  .maps-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: rgba(20, 36, 25, 0.92);
-    backdrop-filter: blur(6px);
-    color: var(--gold-light);
-    border: 1px solid var(--gold);
-    padding: 10px 12px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-  }
-
-  .maps-btn:hover, .maps-btn:active {
-    background: var(--gold);
-    color: var(--forest-dark);
+  .maps-clickable-overlay:active {
+    background: rgba(224, 202, 152, 0.7);
   }
   
   .overlay-content {
@@ -262,29 +247,159 @@
     </video>
   </div>
 
-  <!-- VIDEO 4 (V4.mp4) + TOMBOL PETUNJUK LOKASI DI ATASNYA -->
-  <div class="page-section" style="position: relative;">
+  <!-- VIDEO 4 (V4.mp4) -->
+  <div class="page-section">
     <video class="design-video" autoplay loop muted playsinline preload="auto">
       <source src="V4.mp4" type="video/mp4">
     </video>
+  </div>
 
-    <!-- Tombol Navigasi Google Maps Resmi -->
-    <div class="maps-button-container">
-      <a class="maps-btn" href="https://maps.app.goo.gl/c4Mcqhm6RHwhyWY96" target="_blank" rel="noopener">
-        📍 Google Maps
-      </a>
-    </div>
-  </div>    
-
-  <!-- VIDEO 5 (V5.mp4) -->
-  <div class="page-section">
+  <!-- VIDEO 5 (V5.mp4) + TOMBOL GOOGLE MAPS DI SINI -->
+  <div class="page-section" style="position: relative;">
     <video class="design-video" autoplay loop muted playsinline preload="auto">
       <source src="V5.mp4" type="video/mp4">
     </video>
+    <!-- Area klik transparan Google Maps menutupi tombol hijau di V5 -->
+    <a class="maps-clickable-overlay" href="https://maps.app.goo.gl/c4Mcqhm6RHwhyWY96" target="_blank" rel="noopener" aria-label="Buka Google Maps"></a>
   </div>
 
   <!-- HALAMAN AKHIR (COUNTDOWN & RSVP - Gambar 5.jpg) -->
   <div class="page-section page-section-last">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
-    <div
+    <div class="overlay-content">
+      <div class="countdown-container">
+        <div class="countdown-title">Hitung Mundur Acara</div>
+        <div class="countdown-grid">
+          <div class="cd-box"><div class="cd-number" id="cd-days">00</div><div class="cd-label">Hari</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-hours">00</div><div class="cd-label">Jam</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-mins">00</div><div class="cd-label">Menit</div></div>
+          <div class="cd-box"><div class="cd-number" id="cd-secs">00</div><div class="cd-label">Detik</div></div>
+        </div>
+      </div>
+
+      <div id="rsvp-section">
+        <div class="rsvp-title">Konfirmasi Kehadiran</div>
+        <form id="rsvp-form">
+          <div class="form-group">
+            <label for="f-nama">Nama Lengkap</label>
+            <input type="text" id="f-nama" name="nama" required placeholder="Tulis nama Anda...">
+          </div>
+          <div class="form-group">
+            <label for="f-kehadiran">Konfirmasi Kehadiran</label>
+            <select id="f-kehadiran" name="kehadiran" required>
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Dapat Hadir</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-jumlah">Jumlah Tamu (Termasuk Anda)</label>
+            <input type="number" id="f-jumlah" name="jumlahTamu" value="1" min="1" max="5">
+          </div>
+          <div class="form-group">
+            <label for="f-pesan">Ucapan &amp; Doa Restu</label>
+            <textarea id="f-pesan" name="pesan" rows="2" required placeholder="Tulis ucapan dan doa Anda..."></textarea>
+          </div>
+          <button type="submit" id="rsvp-submit" class="btn-submit">KIRIM KONFIRMASI</button>
+          <div id="rsvp-status" style="text-align:center; font-size:0.7rem; margin-top:6px; color: var(--gold-light);"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button id="music-btn">🎵</button>
+<audio id="bg-audio" loop>
+  <source src="Nadin_Amizah_-_Kekal_(mp3.pm).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqfdP58vU-orf43z_faXqAJTjptGH76VPzKM7aTR7dM-gXJh7cvYq0QEX1IINeZN6rGw/exec";
+  const targetDate = new Date("2026-11-19T08:00:00+07:00").getTime();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName = urlParams.get('to') || urlParams.get('nama');
+  if(guestName) {
+    const formattedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+    document.getElementById('guest-name-display').textContent = formattedName;
+    document.getElementById('f-nama').value = formattedName;
+  }
+
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = targetDate - now;
+    if(diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  const gate = document.getElementById('gate');
+  const openBtn = document.getElementById('open-btn');
+  const musicBtn = document.getElementById('music-btn');
+  const audio = document.getElementById('bg-audio');
+
+  openBtn.addEventListener('click', function(){
+    gate.classList.add('opened');
+    musicBtn.style.display = 'flex';
+    audio.currentTime = 10;
+    audio.play().catch(function(){});
+
+    document.querySelectorAll('video').forEach(vid => {
+      vid.play().catch(() => {});
+    });
+  });
+
+  musicBtn.addEventListener('click', function(){
+    if(audio.paused){ audio.play(); } else { audio.pause(); }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll('.page-section');
+    
+    sections.forEach(section => {
+      section.classList.add('active');
+      const video = section.querySelector('video');
+      if(video) {
+        video.play().catch(() => {});
+      }
+    });
+  });
+
+  const form = document.getElementById('rsvp-form');
+  const submitBtn = document.getElementById('rsvp-submit');
+  const statusEl = document.getElementById('rsvp-status');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'MENGIRIM...';
+
+    fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status === 'success'){
+        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
+        form.reset();
+      } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
+    })
+    .catch(() => { statusEl.textContent = 'Terjadi kesalahan saat mengirim.'; })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'KIRIM KONFIRMASI';
+    });
+  });
+</script>
+
+</body>
+</html>
